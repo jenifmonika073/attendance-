@@ -21,5 +21,4 @@ Technologies Used
 - JavaScript
 
 Author
-
-Jenif Monika
+Nawaz sahul hameed
