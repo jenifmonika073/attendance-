@@ -21,4 +21,4 @@ Technologies Used
 - JavaScript
 
 Author
-Nawaz Sahul Hameed 
+Nawaz Sahul Hameed  
