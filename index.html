@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Daily Attendance Report</title>
+<style>
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+  }
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  h1 {
+    text-align: center;
+    color: #1a3c6e;
+    margin-bottom: 0;
+  }
+  h2 {
+    text-align: center;
+    color: #444;
+    font-weight: normal;
+    margin-top: 4px;
+  }
+  h3 {
+    color: #1a3c6e;
+    border-bottom: 2px solid #1a3c6e;
+    padding-bottom: 4px;
+    margin-top: 25px;
+  }
+  .date-row {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .student-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .student-row span {
+    flex: 1;
+  }
+  .student-row label {
+    margin-left: 12px;
+    font-size: 0.95em;
+    cursor: pointer;
+  }
+  button {
+    display: block;
+    margin: 25px auto 10px auto;
+    padding: 10px 25px;
+    background: #1a3c6e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #12294e;
+  }
+  #summary {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid #1a3c6e;
+  }
+  #summary p {
+    font-size: 1.05em;
+  }
+  #facultyRow {
+    margin-top: 15px;
+  }
+  input[type="text"] {
+    padding: 6px 10px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  #warning {
+    color: #b00020;
+    font-weight: bold;
+    text-align: center;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <h1>FATHIMA EXCELLENCE ACADEMY</h1>
+  <h2>Student Daily Attendance Report</h2>
+
+  <div class="date-row">
+    <label>Date: </label>
+    <input type="date" id="reportDate">
+  </div>
+
+  <h3>1st Standard</h3>
+  <div class="student-row"><span>Yazhini Shree</span>
+    <label><input type="radio" name="a1" value="present"> Present</label>
+    <label><input type="radio" name="a1" value="absent"> Absent</label>
+  </div>
+
+  <h3>2nd Standard</h3>
+  <div class="student-row"><span>Aarisha</span>
+    <label><input type="radio" name="a2" value="present"> Present</label>
+    <label><input type="radio" name="a2" value="absent"> Absent</label>
+  </div>
+
+  <h3>3rd Standard</h3>
+  <div class="student-row"><span>Aasira Fathima</span>
+    <label><input type="radio" name="a3" value="present"> Present</label>
+    <label><input type="radio" name="a3" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>Pawan Varman</span>
+    <label><input type="radio" name="a4" value="present"> Present</label>
+    <label><input type="radio" name="a4" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>Sekh Anyash</span>
+    <label><input type="radio" name="a5" value="present"> Present</label>
+    <label><input type="radio" name="a5" value="absent"> Absent</label>
+  </div>
+
+  <h3>6th Standard</h3>
+  <div class="student-row"><span>Jussica</span>
+    <label><input type="radio" name="a6" value="present"> Present</label>
+    <label><input type="radio" name="a6" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>Mariya</span>
+    <label><input type="radio" name="a7" value="present"> Present</label>
+    <label><input type="radio" name="a7" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>Jahfar Namoos</span>
+    <label><input type="radio" name="a8" value="present"> Present</label>
+    <label><input type="radio" name="a8" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>MD.Thufail</span>
+    <label><input type="radio" name="a9" value="present"> Present</label>
+    <label><input type="radio" name="a9" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>Siddharth</span>
+    <label><input type="radio" name="a10" value="present"> Present</label>
+    <label><input type="radio" name="a10" value="absent"> Absent</label>
+  </div>
+
+  <h3>7th Standard</h3>
+  <div class="student-row"><span>Aashika</span>
+    <label><input type="radio" name="a11" value="present"> Present</label>
+    <label><input type="radio" name="a11" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>Kider Mohammed</span>
+    <label><input type="radio" name="a12" value="present"> Present</label>
+    <label><input type="radio" name="a12" value="absent"> Absent</label>
+  </div>
+
+  <h3>8th Standard</h3>
+  <div class="student-row"><span>Afrin</span>
+    <label><input type="radio" name="a13" value="present"> Present</label>
+    <label><input type="radio" name="a13" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>Devauk</span>
+    <label><input type="radio" name="a14" value="present"> Present</label>
+    <label><input type="radio" name="a14" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>Umar</span>
+    <label><input type="radio" name="a15" value="present"> Present</label>
+    <label><input type="radio" name="a15" value="absent"> Absent</label>
+  </div>
+
+  <h3>9th Standard</h3>
+  <div class="student-row"><span>Rifa Fathima</span>
+    <label><input type="radio" name="a16" value="present"> Present</label>
+    <label><input type="radio" name="a16" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>Sana Fathima</span>
+    <label><input type="radio" name="a17" value="present"> Present</label>
+    <label><input type="radio" name="a17" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>Alvin</span>
+    <label><input type="radio" name="a18" value="present"> Present</label>
+    <label><input type="radio" name="a18" value="absent"> Absent</label>
+  </div>
+
+  <h3>10th Standard</h3>
+  <div class="student-row"><span>Afra Sherin</span>
+    <label><input type="radio" name="a19" value="present"> Present</label>
+    <label><input type="radio" name="a19" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>Varshini</span>
+    <label><input type="radio" name="a20" value="present"> Present</label>
+    <label><input type="radio" name="a20" value="absent"> Absent</label>
+  </div>
+
+  <h3>11th Standard</h3>
+  <div class="student-row"><span>Ibrahim</span>
+    <label><input type="radio" name="a21" value="present"> Present</label>
+    <label><input type="radio" name="a21" value="absent"> Absent</label>
+  </div>
+
+  <h3>12th Standard</h3>
+  <div class="student-row"><span>Shruti</span>
+    <label><input type="radio" name="a22" value="present"> Present</label>
+    <label><input type="radio" name="a22" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>Afran</span>
+    <label><input type="radio" name="a23" value="present"> Present</label>
+    <label><input type="radio" name="a23" value="absent"> Absent</label>
+  </div>
+  <div class="student-row"><span>Sathis Kumar</span>
+    <label><input type="radio" name="a24" value="present"> Present</label>
+    <label><input type="radio" name="a24" value="absent"> Absent</label>
+  </div>
+
+  <div id="facultyRow">
+    <label>Faculty Incharge: </label>
+    <input type="text" id="faculty" placeholder="Enter Faculty Name">
+  </div>
+
+  <p id="warning">Please mark attendance (Present/Absent) for every student before submitting.</p>
+
+  <button onclick="checkAttendance()">Submit Attendance</button>
+
+  <div id="summary">
+    <h3>Attendance Summary</h3>
+    <p><strong>No. of Students Present:</strong> <span id="presentCount">0</span></p>
+    <p><strong>No. of Students Absent:</strong> <span id="absentCount">0</span></p>
+    <p><strong>Total Students:</strong> <span>24</span></p>
+  </div>
+
+</div>
+
+<script>
+function checkAttendance() {
+  var totalGroups = 24;
+  var presentCount = 0;
+  var absentCount = 0;
+  var allMarked = true;
+
+  for (var i = 1; i <= totalGroups; i++) {
+    var group = document.getElementsByName('a' + i);
+    var marked = false;
+    for (var j = 0; j < group.length; j++) {
+      if (group[j].checked) {
+        marked = true;
+        if (group[j].value === 'present') {
+          presentCount++;
+        } else if (group[j].value === 'absent') {
+          absentCount++;
+        }
+      }
+    }
+    if (!marked) {
+      allMarked = false;
+    }
+  }
+
+  var warning = document.getElementById('warning');
+  if (!allMarked) {
+    warning.style.display = 'block';
+  } else {
+    warning.style.display = 'none';
+  }
+
+  document.getElementById('presentCount').textContent = presentCount;
+  document.getElementById('absentCount').textContent = absentCount;
+}
+</script>
+
+</body>
+</html>
