@@ -1,5 +1,5 @@
 // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE (see setup instructions)
-const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxSHcFTDqv4vbJSERwChyfRxF98RKvnKvqlYpc5kmPUixkRqoyqbhFbmR6idNhMMX7Krg/exec";
 
 const students = [
   { name: "Yazhini Shree", standard: "1st", group: "a1" },
