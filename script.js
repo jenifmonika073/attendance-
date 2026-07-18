@@ -1,5 +1,5 @@
 // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE (see setup instructions)
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzzLKWjvgj1yujosqvKJ7bFxdrFHVWQq4smbX6O7mRrNLPleci7WdHWzzx1FE4y9o4_Ow/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxEf_LWP9g9Y1Ckv5pmJQLqJIZGJDVKCNcB12DEDpCQv_ifaxUBR5xSW_fvkdyY3xg/exec";
 // Saves attendance records sent from the webpage
 function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
