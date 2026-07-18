@@ -1,69 +1,6 @@
 // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE (see setup instructions)
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxEf_LWP9g9Y1Ckv5pmJQLqJIZGJDVKCNcB12DEDpCQv_ifaxUBR5xSW_fvkdyY3xg/exec";
-// Saves attendance records sent from the webpage
-function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
-  var body = JSON.parse(e.postData.contents);
-  var records = body.records;
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxEf_LWP9g9Y1Ckv5pmJQLqJIZGJDVKCNcB12OEDpCQv_1faxUBR5xSW_FvkdyY3xg/exec";
 
-  records.forEach(function (r) {
-    sheet.appendRow([r.name, r.standard, r.date, r.status, r.faculty]);
-  });
-
-  return ContentService
-    .createTextOutput(JSON.stringify({ result: "success" }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-// Returns attendance records for a specific date, for the webpage to display
-function doGet(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
-  var data = sheet.getDataRange().getValues();
-
-  if (data.length < 2) {
-    return jsonResponse({ records: [] });
-  }
-
-  var headers = data[0].map(function (h) { return h.toString().trim().toLowerCase(); });
-  var dateIdx = headers.indexOf('date');
-  var standardIdx = headers.indexOf('standard');
-  var nameIdx = headers.indexOf('name');
-  var statusIdx = headers.indexOf('status');
-  var facultyIdx = headers.indexOf('faculty');
-
-  var requestedDate = e.parameter.date;
-  var results = [];
-
-  for (var i = 1; i < data.length; i++) {
-    var row = data[i];
-    var cellDateStr = formatAsDate(row[dateIdx]);
-
-    if (cellDateStr === requestedDate) {
-      results.push({
-        date: cellDateStr,
-        standard: standardIdx > -1 ? row[standardIdx] : "",
-        name: nameIdx > -1 ? row[nameIdx] : "",
-        status: statusIdx > -1 ? row[statusIdx] : "",
-        faculty: facultyIdx > -1 ? row[facultyIdx] : ""
-      });
-    }
-  }
-
-  return jsonResponse({ records: results });
-}
-
-function formatAsDate(value) {
-  if (Object.prototype.toString.call(value) === '[object Date]') {
-    return Utilities.formatDate(value, Session.getScriptTimeZone(), "yyyy-MM-dd");
-  }
-  return value.toString().trim();
-}
-
-function jsonResponse(obj) {
-  return ContentService
-    .createTextOutput(JSON.stringify(obj))
-    .setMimeType(ContentService.MimeType.JSON);
-}
 const students = [
   { name: "Yazhini Shree", standard: "1st", group: "a1" },
   { name: "Aarisha", standard: "2nd", group: "a2" },
@@ -167,4 +104,70 @@ function submitToSheet(records) {
       status.style.color = "#b00020";
       console.error(err);
     });
+}
+
+// ===== NEW: View report for any date (today, yesterday, tomorrow, any date) =====
+function viewReport() {
+  const dateVal = document.getElementById('viewDate').value;
+  const viewStatus = document.getElementById('viewStatus');
+  const resultsDiv = document.getElementById('reportResults');
+
+  if (!dateVal) {
+    viewStatus.textContent = "Please select a date to view.";
+    viewStatus.style.color = "#b00020";
+    return;
+  }
+
+  viewStatus.textContent = "Loading...";
+  viewStatus.style.color = "#444";
+  resultsDiv.innerHTML = "";
+
+  fetch(SCRIPT_URL + "?date=" + encodeURIComponent(dateVal))
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      renderReport(dateVal, data.records || []);
+    })
+    .catch(function (err) {
+      viewStatus.textContent = "Could not load report. Check your internet connection.";
+      viewStatus.style.color = "#b00020";
+      console.error(err);
+    });
+}
+
+function renderReport(dateVal, records) {
+  const viewStatus = document.getElementById('viewStatus');
+  const resultsDiv = document.getElementById('reportResults');
+
+  if (records.length === 0) {
+    viewStatus.textContent = "No attendance found for " + dateVal + ".";
+    viewStatus.style.color = "#b00020";
+    resultsDiv.innerHTML = "";
+    return;
+  }
+
+  viewStatus.textContent = "";
+
+  let presentCount = 0;
+  let absentCount = 0;
+
+  let rows = "";
+  records.forEach(function (r) {
+    if (r.status === "present") presentCount++;
+    else if (r.status === "absent") absentCount++;
+    const rowClass = r.status === "present" ? "present-row" : "absent-row";
+    rows += "<tr class='" + rowClass + "'><td>" + r.standard + "</td><td>" + r.name + "</td><td>" + r.status + "</td></tr>";
+  });
+
+  const faculty = records[0].faculty || "";
+
+  resultsDiv.innerHTML =
+    "<table>" +
+    "<tr><th>Standard</th><th>Name</th><th>Status</th></tr>" +
+    rows +
+    "</table>" +
+    "<p class='report-summary'>Present: " + presentCount +
+    " &nbsp;|&nbsp; Absent: " + absentCount +
+    " &nbsp;|&nbsp; Total: " + records.length +
+    (faculty ? " &nbsp;|&nbsp; Faculty: " + faculty : "") +
+    "</p>";
 }
