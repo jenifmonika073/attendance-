@@ -1,5 +1,5 @@
 // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE (see setup instructions)
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxEf_LWP9g9Y1Ckv5pmJQLqJIZGJDVKCNcB12OEDpCQv_1faxUBR5xSW_FvkdyY3xg/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk8y-8lbglVpmDT76FOXIG00uFaOh4qweAjCrO3wxqcUukZDQJ7hUedsUTrt61OBE/exec";
 function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   var data = JSON.parse(e.postData.contents);
